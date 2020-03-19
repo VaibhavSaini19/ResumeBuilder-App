@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FormFragments.SkillsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/form_skill_ll_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Edit Skills"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <ImageButton
+                android:id="@+id/form_skill_btn_cancel"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_delete_black_24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/form_skill_ll_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/form_skill_ll_heading">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/form_skill_til_skill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+                <EditText
+                    android:id="@+id/form_skill_et_skill"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:hint="Skill" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/form_skill_radio_beginner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Beginner"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/form_skill_radio_intermediate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Intermediate"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/form_skill_radio_advanced"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Advanced"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/form_skill_radio_expert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expert"
+                    android:onClick="onRadioButtonClicked"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/form_skill_btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_green_light"
+            android:text="Save"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/form_skill_ll_form" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
