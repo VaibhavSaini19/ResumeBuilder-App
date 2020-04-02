@@ -68,7 +68,9 @@ public class EducationFragment extends Fragment {
     }
 
 //    TODO: Implement submitData() to get details from views and save to DB?
+    public void submitData(){
 
+    }
 
     @Override
     public void onAttach(Context context) {

@@ -62,6 +62,9 @@ public class SkillsFragment extends Fragment {
 
 //    TODO: Implement submitData() to get details from views and save to DB?
 
+    public void submitData(){
+
+    }
 
 //    TODO: Save the value of selected radio button to instance variable?
     public void onRadioButtonClicked(View view) {

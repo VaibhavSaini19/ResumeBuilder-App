@@ -86,7 +86,7 @@ public class EditDetailsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "addFormFragment() not Working!", Toast.LENGTH_SHORT);
         }
         transaction.addToBackStack(null);
-        transaction.commit()
+        transaction.commit();
     }
 
 }

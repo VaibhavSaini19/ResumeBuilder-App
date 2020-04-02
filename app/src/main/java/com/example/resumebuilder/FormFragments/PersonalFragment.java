@@ -83,6 +83,11 @@ public class PersonalFragment extends Fragment {
 
 //    TODO: Implement submitData() to get details from views and save to DB?
 
+    public void submitData(){
+
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);

@@ -59,8 +59,9 @@ public class ObjectiveFragment extends Fragment {
     }
 
 //    TODO: Implement submitData() to get details from views and save to DB?
+    public void submitData(){
 
-
+    }
 
 
     @Override
