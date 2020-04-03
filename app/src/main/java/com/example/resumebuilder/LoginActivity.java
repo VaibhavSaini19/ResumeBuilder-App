@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btn_signin;
+    private Button btn_login;
     private EditText et_login_email, et_login_password;
     private TextView tv_signup;
 
@@ -42,18 +42,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         }
 
-        btn_signin = findViewById(R.id.btn_signin);
+        btn_login = findViewById(R.id.btn_login);
         tv_signup = findViewById(R.id.tv_signup);
         et_login_email = findViewById(R.id.et_login_email);
         et_login_password = findViewById(R.id.et_login_password);
 
-        btn_signin.setOnClickListener(this);
+        btn_login.setOnClickListener(this);
         tv_signup.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        if (view == btn_signin){
+        if (view == btn_login){
             loginUser();
         }
         if (view == tv_signup){
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     finish();
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 } else {
-                    Toast.makeText(getApplicationContext(), "Failed to login...Try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Inavlid Email / Password", Toast.LENGTH_SHORT).show();
                 }
             }
         });

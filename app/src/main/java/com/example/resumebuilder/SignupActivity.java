@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Pattern;
+
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btn_signup;
@@ -67,12 +69,15 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         String email = et_signup_email.getText().toString().trim();
         String password = et_signup_password.getText().toString().trim();
 
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this, "Please enter an Email", Toast.LENGTH_SHORT).show();
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pat = Pattern.compile(emailRegex);
+
+        if(TextUtils.isEmpty(email) || !pat.matcher(email).matches()){
+            Toast.makeText(this, "Please enter valid Email", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Please enter a Password", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(password) || password.length() < 6){
+            Toast.makeText(this, "Password must be atleast 6 chars", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -87,6 +92,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     finish();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 } else {
+//                    Toast.makeText(getApplicationContext(), "Failed to register...Try again" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), "Failed to register...Try again", Toast.LENGTH_SHORT).show();
                 }
             }
