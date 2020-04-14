@@ -16,7 +16,6 @@ public class Category {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -24,7 +23,6 @@ public class Category {
     public ArrayList<Uri> getTemplatesUri() {
         return templatesUri;
     }
-
     public void setTemplatesUri(ArrayList<Uri> templatesUri) {
         this.templatesUri = templatesUri;
     }

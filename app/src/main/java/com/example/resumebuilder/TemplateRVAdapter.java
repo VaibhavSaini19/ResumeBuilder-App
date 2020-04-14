@@ -64,6 +64,7 @@ public class TemplateRVAdapter extends RecyclerView.Adapter<TemplateRVAdapter.Co
             templateImg = itemView.findViewById(R.id.template_img);
         }
 
+        // TODO: Use Uri to fetch template image from Firebase storage
         public void setTemplateUri(Uri uri) {
             templateImg.setImageURI(uri);
         }

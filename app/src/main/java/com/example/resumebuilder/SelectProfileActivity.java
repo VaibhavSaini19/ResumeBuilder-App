@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,9 @@ public class SelectProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_profile);
 
 //        Intent intent = getIntent();
+
+        Button btn_add_profile = findViewById(R.id.btn_add_profile);
+//        btn_add_profile.setOnClickListener();     Start edit details activity
 
         rv_profile_list = findViewById(R.id.recycler_view_profile_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

@@ -17,8 +17,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.resumebuilder.Profile;
 import com.example.resumebuilder.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileNotFoundException;
 
@@ -26,6 +35,12 @@ public class PersonalFragment extends Fragment {
 
     private static final int PICKFILE_RESULT_CODE = 1;
     private static final int RESULT_OK = -1;
+
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"profiles");
+
+    Profile userProfile;
 
     private EditText form_personal_et_name, form_personal_et_email, form_personal_et_address, form_personal_et_contact;
 
@@ -61,6 +76,33 @@ public class PersonalFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        databaseReference.child("RandomProfileId")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        userProfile = dataSnapshot.getValue(Profile.class);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        throw databaseError.toException();
+                    }
+                });
+
+        if(userProfile.getName() != null && !userProfile.getName().isEmpty()){
+            form_personal_et_name.setText(userProfile.getName().toString());
+        }
+        if(userProfile.getAddress() != null && !userProfile.getAddress().isEmpty()){
+            form_personal_et_address.setText(userProfile.getAddress().toString());
+        }
+        if(userProfile.getContact() != null && !userProfile.getContact().isEmpty()){
+            form_personal_et_contact.setText(userProfile.getContact().toString());
+        }
+        if(userProfile.getEmail() != null && !userProfile.getEmail().isEmpty()){
+            form_personal_et_email.setText(userProfile.getEmail().toString());
+        }
+
+
         Button chooseBtn = getView().findViewById(R.id.form_personal_btn_choose);
         chooseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +126,17 @@ public class PersonalFragment extends Fragment {
 //    TODO: Implement submitData() to get details from views and save to DB?
 
     public void submitData(){
+        String name = form_personal_et_name.getText().toString().trim();
+        String address = form_personal_et_address.getText().toString().trim();
+        String contact = form_personal_et_contact.getText().toString().trim();
+        String email = form_personal_et_email.getText().toString().trim();
 
+        databaseReference.child("RandomProfileId").child("name").setValue(name);
+        databaseReference.child("RandomProfileId").child("address").setValue(address);
+        databaseReference.child("RandomProfileId").child("contact").setValue(contact);
+        databaseReference.child("RandomProfileId").child("email").setValue(email);
+
+        Toast.makeText(getContext(), "Data saved", Toast.LENGTH_SHORT).show();
     }
 
 
