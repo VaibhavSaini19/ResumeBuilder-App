@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/form_exp_ll_form"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/form_exp_til_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/form_exp_et_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Company Name" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/form_exp_til_job"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/form_exp_et_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Job Title" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/form_exp_til_sdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:errorEnabled="true"
+            android:layout_weight="1"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/form_exp_et_sdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Start Date" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/form_exp_til_edate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:errorEnabled="true"
+            android:layout_weight="1"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/form_exp_et_edate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="End Date" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/form_exp_til_desc"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/form_exp_et_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</LinearLayout>

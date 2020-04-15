@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/form_edu_til_degree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/form_edu_et_degree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Degree / Course" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/form_edu_til_university"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/form_edu_et_university"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="University / School" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/form_edu_til_grade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/form_edu_et_grade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Grade / Score" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/form_edu_til_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/form_edu_et_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Year" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

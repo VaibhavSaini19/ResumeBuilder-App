@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Profile {
     private String name, category;
-    private String address, email, contact;                                   // Personal details
+    private String address, email, contact;                                 // Personal details
     private ArrayList<Education> educationArrayList = new ArrayList<>();    // Education
     private ArrayList<Experience> experienceArrayList = new ArrayList<>();  // Experience
     private ArrayList<Skill> skillArrayList = new ArrayList<>();            // Skill
@@ -88,14 +88,18 @@ public class Profile {
     public ArrayList<Project> getProjectArrayList() {
         return projectArrayList;
     }
-
     public void setProjectArrayList(ArrayList<Project> projectArrayList) {
         this.projectArrayList = projectArrayList;
     }
+
+
     // Helper classes
 
-    public class Education {
+    public static class Education {
         private String degree, university, grade, year;
+        public Education(){
+            // Empty constructor
+        }
         public Education(String degree, String university, String grade, String year){
             this.degree = degree;
             this.university = university;
@@ -132,8 +136,9 @@ public class Profile {
         }
     }
 
-    public class Experience {
+    public static class Experience {
         private String company, job, start, end, description;
+        public Experience(){ }
         public Experience(String company, String job, String start, String end, String description){
             this.company = company;
             this.job = job;
@@ -178,8 +183,9 @@ public class Profile {
         }
     }
 
-    public class Skill {
+    public static class Skill {
         private String name, level;
+        public Skill () { }
         public Skill (String name, String level){
             this.name = name;
             this.level = level;
@@ -202,8 +208,9 @@ public class Profile {
         }
     }
 
-    public class Project {
+    public static class Project {
         private String title, description;
+        public Project () { }
         public Project (String title, String description){
             this.title = title;
             this.description = description;
