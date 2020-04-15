@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +22,15 @@ public class EditDetailsActivity extends AppCompatActivity {
     FragmentManager fm = getSupportFragmentManager();
     private Button btn_per, btn_edu, btn_exp, btn_skill, btn_obj, btn_pro;
 
+    private String ProfileId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_details);
+
+        Intent intent = getIntent();
+        ProfileId = intent.getStringExtra("ProfileId");
 
         btn_per = findViewById(R.id.btn_personal_detail);
         btn_edu = findViewById(R.id.btn_educational_detail);
@@ -73,15 +79,19 @@ public class EditDetailsActivity extends AppCompatActivity {
 
     }
 
+    public String getProfileId() {
+        return ProfileId;
+    }
+
     protected void addFormFragment(String fragName){
         FragmentTransaction transaction = fm.beginTransaction();
         switch (fragName){
             case "frag_per": transaction.replace(R.id.container_main, PersonalFragment.newInstance()); break;
             case "frag_edu": transaction.replace(R.id.container_main, EducationFragment.newInstance()); break;
-            case "frag_exp":  transaction.add(R.id.container_main, ExperienceFragment.newInstance()); break;
-            case "frag_skill":  transaction.add(R.id.container_main, SkillsFragment.newInstance()); break;
-            case "frag_obj": transaction.add(R.id.container_main, ObjectiveFragment.newInstance()); break;
-            case "frag_pro":  transaction.add(R.id.container_main, ProjectFragment.newInstance()); break;
+            case "frag_exp":  transaction.replace(R.id.container_main, ExperienceFragment.newInstance()); break;
+            case "frag_skill":  transaction.replace(R.id.container_main, SkillsFragment.newInstance()); break;
+            case "frag_obj": transaction.replace(R.id.container_main, ObjectiveFragment.newInstance()); break;
+            case "frag_pro":  transaction.replace(R.id.container_main, ProjectFragment.newInstance()); break;
             default:
                 Toast.makeText(getApplicationContext(), "addFormFragment() not Working!", Toast.LENGTH_SHORT);
         }

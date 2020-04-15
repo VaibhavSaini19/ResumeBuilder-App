@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.resumebuilder.EditDetailsActivity;
 import com.example.resumebuilder.Profile;
 import com.example.resumebuilder.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,11 +41,12 @@ public class PersonalFragment extends Fragment {
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"profiles");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/profiles");
 
     Profile userProfile;
+    String ProfileId;
 
-    private EditText form_personal_et_name, form_personal_et_email, form_personal_et_address, form_personal_et_contact;
+    private TextInputEditText form_personal_et_name, form_personal_et_email, form_personal_et_address, form_personal_et_contact;
 
     public PersonalFragment() {
         // Required empty public constructor
@@ -56,6 +60,8 @@ public class PersonalFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EditDetailsActivity editDetailsActivity = (EditDetailsActivity) getActivity();
+        ProfileId = editDetailsActivity.getProfileId();
         if (getArguments() != null) {
         }
     }
@@ -75,12 +81,23 @@ public class PersonalFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        databaseReference.child("RandomProfileId")
+        databaseReference.child(ProfileId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         userProfile = dataSnapshot.getValue(Profile.class);
+                        if(userProfile.getName() != null && !userProfile.getName().isEmpty()){
+                            form_personal_et_name.setText(userProfile.getName().toString());
+                        }
+                        if(userProfile.getAddress() != null && !userProfile.getAddress().isEmpty()){
+                            form_personal_et_address.setText(userProfile.getAddress().toString());
+                        }
+                        if(userProfile.getContact() != null && !userProfile.getContact().isEmpty()){
+                            form_personal_et_contact.setText(userProfile.getContact().toString());
+                        }
+                        if(userProfile.getEmail() != null && !userProfile.getEmail().isEmpty()){
+                            form_personal_et_email.setText(userProfile.getEmail().toString());
+                        }
                     }
 
                     @Override
@@ -89,18 +106,7 @@ public class PersonalFragment extends Fragment {
                     }
                 });
 
-        if(userProfile.getName() != null && !userProfile.getName().isEmpty()){
-            form_personal_et_name.setText(userProfile.getName().toString());
-        }
-        if(userProfile.getAddress() != null && !userProfile.getAddress().isEmpty()){
-            form_personal_et_address.setText(userProfile.getAddress().toString());
-        }
-        if(userProfile.getContact() != null && !userProfile.getContact().isEmpty()){
-            form_personal_et_contact.setText(userProfile.getContact().toString());
-        }
-        if(userProfile.getEmail() != null && !userProfile.getEmail().isEmpty()){
-            form_personal_et_email.setText(userProfile.getEmail().toString());
-        }
+
 
 
         Button chooseBtn = getView().findViewById(R.id.form_personal_btn_choose);
@@ -131,10 +137,10 @@ public class PersonalFragment extends Fragment {
         String contact = form_personal_et_contact.getText().toString().trim();
         String email = form_personal_et_email.getText().toString().trim();
 
-        databaseReference.child("RandomProfileId").child("name").setValue(name);
-        databaseReference.child("RandomProfileId").child("address").setValue(address);
-        databaseReference.child("RandomProfileId").child("contact").setValue(contact);
-        databaseReference.child("RandomProfileId").child("email").setValue(email);
+        databaseReference.child(ProfileId).child("name").setValue(name);
+        databaseReference.child(ProfileId).child("address").setValue(address);
+        databaseReference.child(ProfileId).child("contact").setValue(contact);
+        databaseReference.child(ProfileId).child("email").setValue(email);
 
         Toast.makeText(getContext(), "Data saved", Toast.LENGTH_SHORT).show();
     }

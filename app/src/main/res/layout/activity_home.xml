@@ -31,6 +31,13 @@
         android:layout_gravity="center"
         android:text="Logout" />
 
+    <Button
+        android:id="@+id/btn_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Temp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_category_list"
         android:layout_width="match_parent"

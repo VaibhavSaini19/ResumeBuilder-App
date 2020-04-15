@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FormFragments.EducationFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    tools:context=".FormFragments.EducationFragment"
+    android:background="@android:color/white"
+    android:clickable="true">
 
         <LinearLayout
             android:id="@+id/form_edu_ll_heading"
@@ -34,80 +32,14 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/form_edu_ll_form"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/container_edu_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/form_edu_ll_heading">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/form_edu_til_degree"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@android:style/TextAppearance.Medium">
-
-                <EditText
-                    android:id="@+id/form_edu_et_degree"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Degree / Course" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/form_edu_til_university"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@android:style/TextAppearance.Medium">
-
-                <EditText
-                    android:id="@+id/form_edu_et_university"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="University / School" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/form_edu_til_grade"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@android:style/TextAppearance.Medium">
-
-                <EditText
-                    android:id="@+id/form_edu_et_grade"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Grade / Score" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/form_edu_til_year"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@android:style/TextAppearance.Medium">
-
-                <EditText
-                    android:id="@+id/form_edu_et_year"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Year" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/form_edu_ll_heading"/>
 
 
         <Button
@@ -121,8 +53,6 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/form_edu_ll_form" />
+            app:layout_constraintTop_toBottomOf="@+id/container_edu_list" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

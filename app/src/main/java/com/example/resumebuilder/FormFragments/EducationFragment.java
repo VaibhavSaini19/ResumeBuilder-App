@@ -10,6 +10,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +21,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.resumebuilder.CategoryRVAdapter;
+import com.example.resumebuilder.EditDetailsActivity;
 import com.example.resumebuilder.Profile;
 import com.example.resumebuilder.R;
+import com.example.resumebuilder.RVFragEduAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class EducationFragment extends Fragment {
@@ -38,9 +44,12 @@ public class EducationFragment extends Fragment {
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid());
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/profiles");
 
     Profile userProfile;
+    String ProfileId;
+
+    RecyclerView rv_frag_edu_list;
 
     public EducationFragment() {
         // Required empty public constructor
@@ -54,6 +63,8 @@ public class EducationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EditDetailsActivity editDetailsActivity = (EditDetailsActivity) getActivity();
+        ProfileId = editDetailsActivity.getProfileId();
         if (getArguments() != null) {
         }
     }
@@ -74,11 +85,21 @@ public class EducationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        databaseReference.child("profiles").child("RandomProfileId")
+        databaseReference.child(ProfileId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         userProfile = dataSnapshot.getValue(Profile.class);
+                        ArrayList<Profile.Education> educations = userProfile.getEducationArrayList();
+
+                        rv_frag_edu_list = getView().findViewById(R.id.container_edu_list);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                        rv_frag_edu_list.setLayoutManager(layoutManager);
+
+                        RVFragEduAdapter rvFragEduAdapter = new RVFragEduAdapter(getContext(), educations);
+                        rv_frag_edu_list.setAdapter(rvFragEduAdapter);
+
+                        rvFragEduAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -87,7 +108,7 @@ public class EducationFragment extends Fragment {
                     }
                 });
 
-        // TODO: How tf iterate all arraylist object and display them? -_-
+
 
 
         Button submitBtn = getView().findViewById(R.id.form_edu_btn_save);

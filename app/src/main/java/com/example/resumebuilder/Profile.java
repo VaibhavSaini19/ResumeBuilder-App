@@ -13,6 +13,10 @@ public class Profile {
     private String objective;                                               // Objective
     private ArrayList<Project> projectArrayList = new ArrayList<>();        // Project
 
+    public Profile(){
+        // Empty constructor
+    }
+
     public Profile(String name, String category) {
         this.name = name;
         this.category = category;
@@ -47,10 +51,10 @@ public class Profile {
     }
 
     public String getContact() {
-        return phone;
+        return contact;
     }
-    public void setContact(String phone) {
-        this.phone = phone;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public ArrayList<Education> getEducationArrayList() {
@@ -200,7 +204,7 @@ public class Profile {
 
     public class Project {
         private String title, description;
-        public Skill (String title, String description){
+        public Project (String title, String description){
             this.title = title;
             this.description = description;
         }

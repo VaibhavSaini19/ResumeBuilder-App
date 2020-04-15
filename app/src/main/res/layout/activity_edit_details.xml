@@ -9,136 +9,137 @@
     <FrameLayout
         android:id="@+id/container_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:clickable="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/ED_edit_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit Details"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold|italic"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="10dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/ED_edit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Details"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/btn_personal_detail"
-                style="?android:attr/borderlessButtonStyle"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
-                android:drawableEnd="@drawable/ic_edit_black_24dp"
-                android:text="Personal Details" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+                <Button
+                    android:id="@+id/btn_personal_detail"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
+                    android:drawableEnd="@drawable/ic_edit_black_24dp"
+                    android:text="Personal Details" />
+            </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btn_educational_detail"
-                style="?android:attr/borderlessButtonStyle"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
-                android:drawableEnd="@drawable/ic_edit_black_24dp"
-                android:text="Educational Details" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+                <Button
+                    android:id="@+id/btn_educational_detail"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
+                    android:drawableEnd="@drawable/ic_edit_black_24dp"
+                    android:text="Educational Details" />
+            </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btn_experience_detail"
-                style="?android:attr/borderlessButtonStyle"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
-                android:drawableEnd="@drawable/ic_edit_black_24dp"
-                android:text="Experience" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+                <Button
+                    android:id="@+id/btn_experience_detail"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
+                    android:drawableEnd="@drawable/ic_edit_black_24dp"
+                    android:text="Experience" />
+            </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btn_skill_detail"
-                style="?android:attr/borderlessButtonStyle"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
-                android:drawableEnd="@drawable/ic_edit_black_24dp"
-                android:text="Skills" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+                <Button
+                    android:id="@+id/btn_skill_detail"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
+                    android:drawableEnd="@drawable/ic_edit_black_24dp"
+                    android:text="Skills" />
+            </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btn_objective_detail"
-                style="?android:attr/borderlessButtonStyle"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
-                android:drawableEnd="@drawable/ic_edit_black_24dp"
-                android:text="Objective" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+                <Button
+                    android:id="@+id/btn_objective_detail"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
+                    android:drawableEnd="@drawable/ic_edit_black_24dp"
+                    android:text="Objective" />
+            </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btn_project_detail"
-                style="?android:attr/borderlessButtonStyle"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
-                android:drawableEnd="@drawable/ic_edit_black_24dp"
-                android:text="Projects" />
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+                <Button
+                    android:id="@+id/btn_project_detail"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
+                    android:drawableEnd="@drawable/ic_edit_black_24dp"
+                    android:text="Projects" />
+            </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/view_cv_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
-            android:textSize="15sp"
-            android:text="View CV"
-            android:background="@android:color/holo_blue_light"/>
-    </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp">
+                <Button
+                    android:id="@+id/view_cv_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/holo_blue_light"
+                    android:drawableStart="@drawable/ic_remove_red_eye_black_24dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="View CV"
+                    android:textSize="15sp" />
+            </androidx.cardview.widget.CardView>
 
+        </LinearLayout>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

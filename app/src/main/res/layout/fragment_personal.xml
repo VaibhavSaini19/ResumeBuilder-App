@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".FormFragments.PersonalFragment"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@android:color/white"
+    android:clickable="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+    <LinearLayout
             android:id="@+id/form_personal_ll_heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +68,7 @@
                 app:errorEnabled="true"
                 app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/form_personal_et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -82,11 +80,11 @@
                 android:id="@+id/form_personal_til_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/form_personal_et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,14 +96,14 @@
                 android:id="@+id/form_personal_til_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/form_personal_et_address"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="wrap_content"
                     android:hint="Address" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,11 +112,11 @@
                 android:id="@+id/form_personal_til_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/form_personal_et_contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,15 +132,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textColor="@android:color/white"
             android:background="@android:color/holo_green_light"
             android:text="Save"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/form_personal_ll_form" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
