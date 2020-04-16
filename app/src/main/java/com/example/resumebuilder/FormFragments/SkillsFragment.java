@@ -1,26 +1,57 @@
 package com.example.resumebuilder.FormFragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.example.resumebuilder.EditDetailsActivity;
+import com.example.resumebuilder.Profile;
 import com.example.resumebuilder.R;
+import com.example.resumebuilder.RVFragExpAdapter;
+import com.example.resumebuilder.RVFragSkillAdapter;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class SkillsFragment extends Fragment {
 
-    private EditText form_skill_et_skill;
-    private RadioButton form_skill_radio;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/profiles");
+
+    Profile userProfile;
+    String ProfileId;
+
+    AlertDialog alertDialog;
+
+    RecyclerView rv_frag_skill_list;
+
+    String skill_lvl;                   // NEEDS TO BE DECLARED AS INSTANCE VARIABLE, since cannot modify it inside anonymous class, if declared final in 'skillFormDiaglog'
 
     public SkillsFragment() {
         // Required empty public constructor
@@ -34,6 +65,9 @@ public class SkillsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EditDetailsActivity editDetailsActivity = (EditDetailsActivity) getActivity();
+        ProfileId = editDetailsActivity.getProfileId();
+        alertDialog = skillFormDiaglog();
         if (getArguments() != null) {
         }
     }
@@ -43,7 +77,6 @@ public class SkillsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_skills, container, false);
-        form_skill_et_skill = view.findViewById(R.id.form_skill_et_skill);
         return view;
     }
 
@@ -51,46 +84,94 @@ public class SkillsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button submitBtn = getView().findViewById(R.id.form_skill_btn_save);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
+        databaseReference.child(ProfileId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        Log.d("TAG", dataSnapshot.getValue().toString());
+                        userProfile = dataSnapshot.getValue(Profile.class);
+                        ArrayList<Profile.Skill> skills = userProfile.getSkillArrayList();
+
+                        rv_frag_skill_list = getView().findViewById(R.id.container_skill_list);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                        rv_frag_skill_list.setLayoutManager(layoutManager);
+
+                        RVFragSkillAdapter rvFragSkillAdapter = new RVFragSkillAdapter(getContext(), skills);
+                        rv_frag_skill_list.setAdapter(rvFragSkillAdapter);
+
+                        rvFragSkillAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        throw databaseError.toException();
+                    }
+                });
+
+        Button form_skill_btn_add = getView().findViewById(R.id.form_skill_btn_add);
+        form_skill_btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitData();
+                alertDialog.show();
             }
         });
     }
 
-//    TODO: Implement submitData() to get details from views and save to DB?
+    public AlertDialog skillFormDiaglog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.form_frag_skill, null);
+        final TextInputEditText skill_et = view.findViewById(R.id.form_skill_et_skill);
+        final RadioGroup radioGroup = view.findViewById(R.id.form_skill_radiogroup);
 
-    public void submitData(){
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.form_skill_radio_beginner:
+                        skill_lvl = "Beginner";
+                        break;
+                    case R.id.form_skill_radio_intermediate:
+                        skill_lvl = "Intermediate";
+                        break;
+                    case R.id.form_skill_radio_advanced:
+                        skill_lvl = "Advanced";
+                        break;
+                    case R.id.form_skill_radio_expert:
+                        skill_lvl = "Expert";
+                        break;
+                }
+            }
+        });
+        builder.setView(view);
 
+        builder.setTitle("Add skill");
+        builder.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getContext(), "Cancled", Toast.LENGTH_SHORT);
+            }
+        });
+        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String skill = skill_et.getText().toString();
+                String lvl = skill_lvl;
+
+                ArrayList<Profile.Skill> skills = userProfile.getSkillArrayList();
+                Profile.Skill skillNew = new Profile.Skill(skill, lvl);
+                skills.add(skillNew);
+                userProfile.setSkillArrayList(skills);
+
+//                Log.d("TAG", userProfile.toString());
+                databaseReference.child(ProfileId).setValue(userProfile);
+                Toast.makeText(getContext(), "Data added", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return builder.create();
     }
 
-//    TODO: Save the value of selected radio button to instance variable?
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
 
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.form_skill_radio_beginner:
-                if (checked)
-                    // Pirates are the best
-                    break;
-            case R.id.form_skill_radio_intermediate:
-                if (checked)
-                    // Ninjas rule
-                    break;
-            case R.id.form_skill_radio_advanced:
-                if (checked)
-                    // Ninjas rule
-                    break;
-            case R.id.form_skill_radio_expert:
-                if (checked)
-                    // Ninjas rule
-                    break;
-        }
-    }
 
     @Override
     public void onAttach(Context context) {

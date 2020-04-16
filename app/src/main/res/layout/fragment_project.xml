@@ -32,61 +32,28 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/form_pro_ll_form"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/form_pro_ll_heading">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/form_pro_til_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true"
-            app:hintTextAppearance="@android:style/TextAppearance.Medium">
-
-            <EditText
-                android:id="@+id/form_pro_et_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Title" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/form_pro_til_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true"
-            app:hintTextAppearance="@android:style/TextAppearance.Medium">
-
-            <EditText
-                android:id="@+id/form_pro_et_desc"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:hint="Description" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
 
     <Button
-        android:id="@+id/form_pro_btn_save"
+        android:id="@+id/form_pro_btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="@android:color/white"
         android:background="@android:color/holo_green_light"
-        android:text="Save"
+        android:text="Add"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/form_pro_ll_form" />
+        app:layout_constraintTop_toBottomOf="@+id/form_pro_ll_heading" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/container_project_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/form_pro_btn_add"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

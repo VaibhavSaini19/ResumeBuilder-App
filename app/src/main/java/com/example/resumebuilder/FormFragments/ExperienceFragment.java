@@ -84,7 +84,7 @@ public class ExperienceFragment extends Fragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.d("TAG", dataSnapshot.getValue().toString());
+//                        Log.d("TAG", dataSnapshot.getValue().toString());
                         userProfile = dataSnapshot.getValue(Profile.class);
                         ArrayList<Profile.Experience> experiences = userProfile.getExperienceArrayList();
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/form_skill_ll_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/form_skill_ll_heading">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/form_skill_til_skill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/form_skill_et_skill"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:hint="Skill" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/form_skill_radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/form_skill_radio_beginner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beginner"/>
+            <RadioButton android:id="@+id/form_skill_radio_intermediate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Intermediate"/>
+            <RadioButton android:id="@+id/form_skill_radio_advanced"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Advanced"/>
+            <RadioButton android:id="@+id/form_skill_radio_expert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expert"/>
+        </RadioGroup>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -107,8 +107,6 @@ public class PersonalFragment extends Fragment {
                 });
 
 
-
-
         Button chooseBtn = getView().findViewById(R.id.form_personal_btn_choose);
         chooseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,8 +126,6 @@ public class PersonalFragment extends Fragment {
             }
         });
     }
-
-//    TODO: Implement submitData() to get details from views and save to DB?
 
     public void submitData(){
         String name = form_personal_et_name.getText().toString().trim();

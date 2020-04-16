@@ -49,7 +49,7 @@
                 app:errorEnabled="true"
                 app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/form_obj_et_obj"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
