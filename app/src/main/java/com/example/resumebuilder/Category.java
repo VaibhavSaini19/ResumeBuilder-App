@@ -6,11 +6,13 @@ import java.util.ArrayList;
 
 public class Category {
     private String name;
-    private ArrayList<Uri> templatesUri;
+    private ArrayList<String> templatesUriStrings;
 
-    public Category(String name, ArrayList<Uri> templatesUri) {
+    public Category() { }
+
+    public Category(String name, ArrayList<String> templatesUriStrings) {
         this.name = name;
-        this.templatesUri = templatesUri;
+        this.templatesUriStrings = templatesUriStrings;
     }
 
     public String getName() {
@@ -20,10 +22,10 @@ public class Category {
         this.name = name;
     }
 
-    public ArrayList<Uri> getTemplatesUri() {
-        return templatesUri;
+    public ArrayList<String> getTemplatesUriStrings() {
+        return templatesUriStrings;
     }
-    public void setTemplatesUri(ArrayList<Uri> templatesUri) {
-        this.templatesUri = templatesUri;
+    public void setTemplatesUriStrings(ArrayList<String> templatesUriStrings) {
+        this.templatesUriStrings = templatesUriStrings;
     }
 }

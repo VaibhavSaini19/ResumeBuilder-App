@@ -16,13 +16,13 @@ import java.util.ArrayList;
 public class TemplateRVAdapter extends RecyclerView.Adapter<TemplateRVAdapter.ContactHolder> {
 
     // List to store all the contact details
-    private ArrayList<Uri> templateUriList;
+    private ArrayList<String> templateUriStrings;
     private Context mContext;
 
     // Constructor for the Class
-    public TemplateRVAdapter(Context context, ArrayList<Uri> templateUriList) {
+    public TemplateRVAdapter(Context context, ArrayList<String> templateUriStrings) {
         this.mContext = context;
-        this.templateUriList = templateUriList;
+        this.templateUriStrings = templateUriStrings;
     }
 
     // This method creates views for the RecyclerView by inflating the layout
@@ -38,16 +38,16 @@ public class TemplateRVAdapter extends RecyclerView.Adapter<TemplateRVAdapter.Co
 
     @Override
     public int getItemCount() {
-        return templateUriList == null? 0: templateUriList.size();
+        return templateUriStrings == null? 0: templateUriStrings.size();
     }
 
     // This method is called when binding the data to the views being created in RecyclerView
     @Override
     public void onBindViewHolder(@NonNull ContactHolder holder, final int position) {
-        final Uri templateUri = templateUriList.get(position);
+        final String templateUriString = templateUriStrings.get(position);
 
         // Set the data to the views here
-        holder.setTemplateUri(templateUri);
+        holder.setTemplateUri(templateUriString);
 
         // You can set click listners to indvidual items in the viewholder here
         // make sure you pass down the listner or make the Data members of the viewHolder public
@@ -65,8 +65,10 @@ public class TemplateRVAdapter extends RecyclerView.Adapter<TemplateRVAdapter.Co
         }
 
         // TODO: Use Uri to fetch template image from Firebase storage
-        public void setTemplateUri(Uri uri) {
-            templateImg.setImageURI(uri);
+        public void setTemplateUri(String uriString) {
+            Uri imgUri = Uri.parse(uriString);
+            templateImg.setImageURI(null);
+            templateImg.setImageURI(imgUri);
         }
     }
 }

@@ -71,38 +71,25 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 //        TODO: Fetch data for 'categoryList' from DB
-//        databaseReferenceCategory.child("category")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot categoryListDB) {
-//                        for(int i=0; i < categoryListDB.getChildrenCount(); i++){
-//                            final ArrayList<Uri> uris = new ArrayList<Uri>();
-//                            databaseReferenceCategory.child(categoryListDB.child(String.valueOf(i)).getValue(String.class))
-//                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot uriListDB) {
-//                                            for (int j=0; j < uriListDB.getChildrenCount(); j++){
-//                                                uris.add(uriListDB.child(String.valueOf(j)).getValue(String.class));
-//                                            }
-//                                        }
-//
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//                                            throw databaseError.toException();
-//                                        }
-//                                    });
-//                        }
-//                        categoryRVAdapter = new CategoryRVAdapter(getApplicationContext(), categoryList);
-//                        rv_cateory_list.setAdapter(categoryRVAdapter);
-//
-//                        categoryRVAdapter.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                        throw databaseError.toException();
-//                    }
-//                });
+        databaseReferenceCategory.child("category")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                            categoryList.add(snapshot.getValue(Category.class));
+                        }
+
+                        categoryRVAdapter = new CategoryRVAdapter(getApplicationContext(), categoryList);
+                        rv_cateory_list.setAdapter(categoryRVAdapter);
+
+                        categoryRVAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        throw databaseError.toException();
+                    }
+                });
     }
 
     @Override
