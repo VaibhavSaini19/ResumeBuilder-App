@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -33,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Category> categoryList;
     private RecyclerView rv_cateory_list;
 
+    private ProgressBar progressBar;
     private DatabaseReference databaseReferenceCategory;
 
     @Override
@@ -56,29 +60,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         btn_logout = findViewById(R.id.btn_logout);
         btn_logout.setOnClickListener(this);
 
+        categoryList = new ArrayList<>();
         rv_cateory_list = findViewById(R.id.recycler_view_category_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv_cateory_list.setLayoutManager(layoutManager);
 
-
-        Button btn_temp = findViewById(R.id.btn_temp);
-        btn_temp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EditDetailsActivity.class);
-                intent.putExtra("ProfileId", "RandomProfileId");
-                startActivity(intent);
-            }
-        });
 //        TODO: Fetch data for 'categoryList' from DB
+        progressBar = findViewById(R.id.progressBar);
         databaseReferenceCategory.child("category")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+//                            Log.d("TAG", snapshot.getValue().toString());
                             categoryList.add(snapshot.getValue(Category.class));
                         }
-
                         categoryRVAdapter = new CategoryRVAdapter(getApplicationContext(), categoryList);
                         rv_cateory_list.setAdapter(categoryRVAdapter);
 

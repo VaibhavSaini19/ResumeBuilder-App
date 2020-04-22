@@ -10,32 +10,38 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class GridViewAdapter  extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<Uri> imagesUri;
+    private ArrayList<Category.Template> templates;
+    private StorageReference storageReference;
+    private LayoutInflater inflater;
 
     private class ViewHolder {
-        GridView template_gv;
+        ImageView templateIV;
     }
 
-    public GridViewAdapter(Context context, ArrayList<Uri> imagesUri){
+    public GridViewAdapter(Context context, ArrayList<Category.Template> templates){
         super();
         this.mContext = context;
-        this.imagesUri = imagesUri;
+        this.templates = templates;
     }
 
     @Override
     public int getCount() {
-        return imagesUri.size();
+        return templates.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return imagesUri.get(position);
+        return templates.get(position);
     }
 
     @Override
@@ -45,28 +51,27 @@ public class GridViewAdapter  extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
+        ViewHolder holder;
 
         if (convertView == null) {
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            inflater = (LayoutInflater) mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+            convertView = inflater.inflate(R.layout.rv_template_list, parent, false);
+            holder = new ViewHolder();
+            holder.templateIV = convertView.findViewById(R.id.template_img);
+            convertView.setTag(holder);
         }
-        else
-        {
-            imageView = (ImageView) convertView;
+        else {
+            holder = (ViewHolder) convertView.getTag();
         }
-        try {
-            imageView.setImageBitmap(MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), imagesUri.get(position)));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return imageView;
+        storageReference = FirebaseStorage.getInstance().getReference(templates.get(position).getImgPath());
+        Glide.with(mContext)
+                .load(storageReference)
+                .into(holder.templateIV);
+        return convertView;
     }
 
 }
 
-
+//https://stackoverflow.com/questions/32076806/android-grid-view-with-custom-base-adapter
 //https://stackoverflow.com/questions/33843671/adding-array-of-uris-into-a-gridview
 //https://stackoverflow.com/questions/51272723/list-of-uri-to-a-gridview

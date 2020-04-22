@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#e8ea63"
+        android:background="#dddddd"
         android:gravity="center_horizontal"
         android:horizontalSpacing="5dp"
         android:numColumns="2"

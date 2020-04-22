@@ -8,6 +8,12 @@
     android:orientation="vertical"
     android:padding="15dp">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,15 +37,9 @@
         android:layout_gravity="center"
         android:text="Logout" />
 
-    <Button
-        android:id="@+id/btn_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Temp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_category_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>
