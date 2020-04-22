@@ -92,18 +92,20 @@ public class EducationFragment extends Fragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.d("TAG", dataSnapshot.getValue().toString());
+//                        Log.d("TAG", dataSnapshot.getValue().toString());
                         userProfile = dataSnapshot.getValue(Profile.class);
-                        ArrayList<Profile.Education> educations = userProfile.getEducationArrayList();
+                        if (userProfile != null && userProfile.getEducationArrayList() != null) {
+                            ArrayList<Profile.Education> educations = userProfile.getEducationArrayList();
 
-                        rv_frag_edu_list = getView().findViewById(R.id.container_edu_list);
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                        rv_frag_edu_list.setLayoutManager(layoutManager);
+                            rv_frag_edu_list = getView().findViewById(R.id.container_edu_list);
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                            rv_frag_edu_list.setLayoutManager(layoutManager);
 
-                        RVFragEduAdapter rvFragEduAdapter = new RVFragEduAdapter(getContext(), educations);
-                        rv_frag_edu_list.setAdapter(rvFragEduAdapter);
+                            RVFragEduAdapter rvFragEduAdapter = new RVFragEduAdapter(getContext(), educations);
+                            rv_frag_edu_list.setAdapter(rvFragEduAdapter);
 
-                        rvFragEduAdapter.notifyDataSetChanged();
+                            rvFragEduAdapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override

@@ -86,16 +86,16 @@ public class PersonalFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         userProfile = dataSnapshot.getValue(Profile.class);
-                        if(userProfile.getName() != null && !userProfile.getName().isEmpty()){
+                        if(userProfile != null && userProfile.getName() != null && !userProfile.getName().isEmpty()){
                             form_personal_et_name.setText(userProfile.getName().toString());
                         }
-                        if(userProfile.getAddress() != null && !userProfile.getAddress().isEmpty()){
+                        if(userProfile != null && userProfile.getAddress() != null && !userProfile.getAddress().isEmpty()){
                             form_personal_et_address.setText(userProfile.getAddress().toString());
                         }
-                        if(userProfile.getContact() != null && !userProfile.getContact().isEmpty()){
+                        if(userProfile != null && userProfile.getContact() != null && !userProfile.getContact().isEmpty()){
                             form_personal_et_contact.setText(userProfile.getContact().toString());
                         }
-                        if(userProfile.getEmail() != null && !userProfile.getEmail().isEmpty()){
+                        if(userProfile != null && userProfile.getEmail() != null && !userProfile.getEmail().isEmpty()){
                             form_personal_et_email.setText(userProfile.getEmail().toString());
                         }
                     }

@@ -74,7 +74,7 @@ public class ObjectiveFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         userProfile = dataSnapshot.getValue(Profile.class);
-                        if(userProfile.getObjective() != null && !userProfile.getObjective().isEmpty()){
+                        if(userProfile != null && userProfile.getObjective() != null && !userProfile.getObjective().isEmpty()){
                             form_obj_et_obj.setText(userProfile.getObjective().toString());
                         }
                     }

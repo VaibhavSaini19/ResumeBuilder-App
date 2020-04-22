@@ -86,16 +86,18 @@ public class ExperienceFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 //                        Log.d("TAG", dataSnapshot.getValue().toString());
                         userProfile = dataSnapshot.getValue(Profile.class);
-                        ArrayList<Profile.Experience> experiences = userProfile.getExperienceArrayList();
+                        if (userProfile != null && userProfile.getEducationArrayList() != null) {
+                            ArrayList<Profile.Experience> experiences = userProfile.getExperienceArrayList();
 
-                        rv_frag_exp_list = getView().findViewById(R.id.container_exp_list);
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                        rv_frag_exp_list.setLayoutManager(layoutManager);
+                            rv_frag_exp_list = getView().findViewById(R.id.container_exp_list);
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                            rv_frag_exp_list.setLayoutManager(layoutManager);
 
-                        RVFragExpAdapter rvFragExpAdapter = new RVFragExpAdapter(getContext(), experiences);
-                        rv_frag_exp_list.setAdapter(rvFragExpAdapter);
+                            RVFragExpAdapter rvFragExpAdapter = new RVFragExpAdapter(getContext(), experiences);
+                            rv_frag_exp_list.setAdapter(rvFragExpAdapter);
 
-                        rvFragExpAdapter.notifyDataSetChanged();
+                            rvFragExpAdapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override

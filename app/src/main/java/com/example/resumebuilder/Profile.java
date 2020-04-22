@@ -5,7 +5,7 @@ import android.net.Uri;
 import java.util.ArrayList;
 
 public class Profile {
-    private String name, category;
+    private String profileId, name, category;
     private String address, email, contact;                                 // Personal details
     private ArrayList<Education> educationArrayList = new ArrayList<>();    // Education
     private ArrayList<Experience> experienceArrayList = new ArrayList<>();  // Experience
@@ -20,6 +20,13 @@ public class Profile {
     public Profile(String name, String category) {
         this.name = name;
         this.category = category;
+    }
+
+    public String getProfileId() {
+        return profileId;
+    }
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
     }
 
     public String getName() {

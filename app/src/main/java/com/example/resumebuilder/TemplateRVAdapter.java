@@ -28,28 +28,30 @@ import java.util.ArrayList;
 
 import static java.security.AccessController.getContext;
 
-public class TemplateRVAdapter extends RecyclerView.Adapter<TemplateRVAdapter.ContactHolder> {
+public class TemplateRVAdapter extends RecyclerView.Adapter<TemplateRVAdapter.TemplateHolder> {
 
     // List to store all the contact details
+    private String name;
     private ArrayList<Category.Template> templates;
     private Context mContext;
     private StorageReference storageReference;
 
     // Constructor for the Class
-    public TemplateRVAdapter(Context context, ArrayList<Category.Template> templates) {
+    public TemplateRVAdapter(Context context, String name, ArrayList<Category.Template> templates) {
         this.mContext = context;
+        this.name = name;
         this.templates = templates;
     }
 
     // This method creates views for the RecyclerView by inflating the layout
     // Into the viewHolders which helps to display the items in the RecyclerView
     @Override
-    public ContactHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public TemplateHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
         // Inflate the layout view you have created for the list rows here
         View view = layoutInflater.inflate(R.layout.rv_template_list, parent, false);
-        return new ContactHolder(view);
+        return new TemplateHolder(view);
     }
 
     @Override
@@ -59,7 +61,7 @@ public class TemplateRVAdapter extends RecyclerView.Adapter<TemplateRVAdapter.Co
 
     // This method is called when binding the data to the views being created in RecyclerView
     @Override
-    public void onBindViewHolder(@NonNull ContactHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull TemplateHolder holder, final int position) {
         final Category.Template template = templates.get(position);
 
         // Set the data to the views here
@@ -71,20 +73,22 @@ public class TemplateRVAdapter extends RecyclerView.Adapter<TemplateRVAdapter.Co
     }
 
     // This is your ViewHolder class that helps to populate data to the view
-    public class ContactHolder extends RecyclerView.ViewHolder {
+    public class TemplateHolder extends RecyclerView.ViewHolder {
 
         private ImageView templateImg;
 
-        public ContactHolder(View itemView) {
+        public TemplateHolder(View itemView) {
             super(itemView);
             templateImg = itemView.findViewById(R.id.template_img);
-            templateImg.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(), "Clicked here", Toast.LENGTH_SHORT).show();
-//                  TODO: Start SelectProfileActivity instead of EditDetailsActivity
-                    Intent intent = new Intent(view.getContext(), EditDetailsActivity.class);
-                    intent.putExtra("ProfileId", "RandomProfileId");
+//                    Toast.makeText(view.getContext(), "Clicked here", Toast.LENGTH_SHORT).show();
+                    int pos = getAdapterPosition();
+                    Intent intent = new Intent(view.getContext(), SelectProfileActivity.class);
+                    intent.putExtra("CategoryName", name);
+                    intent.putExtra("TemplateImgPath", templates.get(pos).getImgPath());
+                    intent.putExtra("TemplateFilePath", templates.get(pos).getFilePath());
                     view.getContext().startActivity(intent);
                 }
             });

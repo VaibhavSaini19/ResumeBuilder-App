@@ -1,5 +1,6 @@
 package com.example.resumebuilder;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,21 +17,59 @@ import com.example.resumebuilder.FormFragments.ObjectiveFragment;
 import com.example.resumebuilder.FormFragments.PersonalFragment;
 import com.example.resumebuilder.FormFragments.ProjectFragment;
 import com.example.resumebuilder.FormFragments.SkillsFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class EditDetailsActivity extends AppCompatActivity {
 
     FragmentManager fm = getSupportFragmentManager();
     private Button btn_per, btn_edu, btn_exp, btn_skill, btn_obj, btn_pro;
+    private String ProfileId, categoryName, templateImgPath, templateFilePath;
 
-    private String ProfileId;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
+
+    private Profile tempProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_details);
 
+
         Intent intent = getIntent();
         ProfileId = intent.getStringExtra("ProfileId");
+        categoryName = intent.getStringExtra("CategoryName");
+        templateImgPath = intent.getStringExtra("TemplateImgPath");
+        templateFilePath = intent.getStringExtra("TemplateFilePath");
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/profiles/");
+        databaseReference.child(ProfileId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        tempProfile = dataSnapshot.getValue(Profile.class);
+                        if(tempProfile == null){
+                            tempProfile = new Profile();
+                            tempProfile.setProfileId(ProfileId);
+                            tempProfile.setCategory(categoryName);
+                            databaseReference.child(ProfileId).setValue(tempProfile);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        throw databaseError.toException();
+                    }
+                });
+
 
         btn_per = findViewById(R.id.btn_personal_detail);
         btn_edu = findViewById(R.id.btn_educational_detail);
@@ -77,6 +116,7 @@ public class EditDetailsActivity extends AppCompatActivity {
         });
 
 
+
     }
 
     public String getProfileId() {
@@ -93,7 +133,7 @@ public class EditDetailsActivity extends AppCompatActivity {
             case "frag_obj": transaction.replace(R.id.container_main, ObjectiveFragment.newInstance()); break;
             case "frag_pro":  transaction.replace(R.id.container_main, ProjectFragment.newInstance()); break;
             default:
-                Toast.makeText(getApplicationContext(), "addFormFragment() not Working!", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "addFormFragment() not Working!", Toast.LENGTH_SHORT).show();
         }
         transaction.addToBackStack(null);
         transaction.commit();

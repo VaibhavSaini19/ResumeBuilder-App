@@ -53,7 +53,7 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.Co
 
         // Set the data to the views here
         holder.setCategoryName(category.getName());
-        holder.setCategoryTemplates(category.getTemplates(), this.mContext);
+        holder.setCategoryTemplates(category.getTemplates(), category.getName(), this.mContext);
 
         // You can set click listners to indvidual items in the viewholder here
         // make sure you pass down the listner or make the Data members of the viewHolder public
@@ -88,10 +88,10 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.Co
             cName.setText(name);
         }
 
-        public void setCategoryTemplates(ArrayList<Category.Template> templates, Context context) {
+        public void setCategoryTemplates(ArrayList<Category.Template> templates, String name, Context context) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             rv_template_list.setLayoutManager(layoutManager);
-            templateRVAdapter = new TemplateRVAdapter(context, templates);
+            templateRVAdapter = new TemplateRVAdapter(context, name, templates);
             rv_template_list.setAdapter(templateRVAdapter);
 
             templateRVAdapter.notifyDataSetChanged();

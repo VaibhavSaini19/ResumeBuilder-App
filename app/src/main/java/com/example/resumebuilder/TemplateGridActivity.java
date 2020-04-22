@@ -45,7 +45,6 @@ public class TemplateGridActivity extends AppCompatActivity {
         category_name_gv = findViewById(R.id.category_name_gv);
         category_name_gv.setText(categoryName);
 
-//        TODO: Fetch data for 'category' and fill imagesUri with Templates Uri
         databaseReferenceCategory
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -58,10 +57,11 @@ public class TemplateGridActivity extends AppCompatActivity {
                         templateGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Toast.makeText(TemplateGridActivity.this, "You clicked " + i, Toast.LENGTH_SHORT).show();
-    //                          TODO: Start SelectProfileActivity instead of EditDetailsActivity
-                                Intent intent = new Intent(getApplicationContext(), EditDetailsActivity.class);
-                                intent.putExtra("ProfileId", "RandomProfileId");
+//                                Toast.makeText(TemplateGridActivity.this, "You clicked " + i, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(view.getContext(), SelectProfileActivity.class);
+                                intent.putExtra("CategoryName", categoryName);
+                                intent.putExtra("TemplateImgPath", category.getTemplates().get(i).getImgPath());
+                                intent.putExtra("TemplateFilePath", category.getTemplates().get(i).getImgPath());
                                 startActivity(intent);
                             }
                         });

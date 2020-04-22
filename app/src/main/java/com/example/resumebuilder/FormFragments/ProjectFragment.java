@@ -88,16 +88,18 @@ public class ProjectFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 //                        Log.d("TAG", dataSnapshot.getValue().toString());
                         userProfile = dataSnapshot.getValue(Profile.class);
-                        ArrayList<Profile.Project> projects = userProfile.getProjectArrayList();
+                        if(userProfile != null && userProfile.getProjectArrayList() != null) {
+                            ArrayList<Profile.Project> projects = userProfile.getProjectArrayList();
 
-                        rv_frag_project_list = getView().findViewById(R.id.container_project_list);
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                        rv_frag_project_list.setLayoutManager(layoutManager);
+                            rv_frag_project_list = getView().findViewById(R.id.container_project_list);
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                            rv_frag_project_list.setLayoutManager(layoutManager);
 
-                        RVFragProAdapter rvFragProAdapter = new RVFragProAdapter(getContext(), projects);
-                        rv_frag_project_list.setAdapter(rvFragProAdapter);
+                            RVFragProAdapter rvFragProAdapter = new RVFragProAdapter(getContext(), projects);
+                            rv_frag_project_list.setAdapter(rvFragProAdapter);
 
-                        rvFragProAdapter.notifyDataSetChanged();
+                            rvFragProAdapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override

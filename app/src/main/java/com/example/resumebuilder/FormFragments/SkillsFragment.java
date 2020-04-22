@@ -90,16 +90,18 @@ public class SkillsFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 //                        Log.d("TAG", dataSnapshot.getValue().toString());
                         userProfile = dataSnapshot.getValue(Profile.class);
-                        ArrayList<Profile.Skill> skills = userProfile.getSkillArrayList();
+                        if (userProfile != null && userProfile.getSkillArrayList() != null) {
+                            ArrayList<Profile.Skill> skills = userProfile.getSkillArrayList();
 
-                        rv_frag_skill_list = getView().findViewById(R.id.container_skill_list);
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                        rv_frag_skill_list.setLayoutManager(layoutManager);
+                            rv_frag_skill_list = getView().findViewById(R.id.container_skill_list);
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                            rv_frag_skill_list.setLayoutManager(layoutManager);
 
-                        RVFragSkillAdapter rvFragSkillAdapter = new RVFragSkillAdapter(getContext(), skills);
-                        rv_frag_skill_list.setAdapter(rvFragSkillAdapter);
+                            RVFragSkillAdapter rvFragSkillAdapter = new RVFragSkillAdapter(getContext(), skills);
+                            rv_frag_skill_list.setAdapter(rvFragSkillAdapter);
 
-                        rvFragSkillAdapter.notifyDataSetChanged();
+                            rvFragSkillAdapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override
