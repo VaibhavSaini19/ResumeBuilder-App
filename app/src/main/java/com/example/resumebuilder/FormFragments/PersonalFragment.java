@@ -1,5 +1,6 @@
 package com.example.resumebuilder.FormFragments;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,14 +16,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.resumebuilder.EditDetailsActivity;
 import com.example.resumebuilder.Profile;
 import com.example.resumebuilder.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,8 +36,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URLEncoder;
 
 public class PersonalFragment extends Fragment {
 
@@ -42,11 +52,15 @@ public class PersonalFragment extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/profiles");
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference("users/"+user.getUid());
 
     Profile userProfile;
     String ProfileId;
 
     private TextInputEditText form_personal_et_name, form_personal_et_email, form_personal_et_address, form_personal_et_contact;
+    private ImageView form_personal_iv_img;
+    private Uri img_uri, downloadUri;
+    private String img_uri_name;
 
     public PersonalFragment() {
         // Required empty public constructor
@@ -71,6 +85,8 @@ public class PersonalFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
+
+        form_personal_iv_img = view.findViewById(R.id.form_personal_iv_img);
         form_personal_et_name = view.findViewById(R.id.form_personal_et_name);
         form_personal_et_email = view.findViewById(R.id.form_personal_et_email);
         form_personal_et_address = view.findViewById(R.id.form_personal_et_address);
@@ -86,6 +102,11 @@ public class PersonalFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         userProfile = dataSnapshot.getValue(Profile.class);
+                        if(userProfile != null && userProfile.getProfilePic() != null && !userProfile.getProfilePic().isEmpty()){
+                            Glide.with(getContext())
+                                    .load(storageReference.child(userProfile.getProfilePic()))
+                                    .into(form_personal_iv_img);
+                        }
                         if(userProfile != null && userProfile.getName() != null && !userProfile.getName().isEmpty()){
                             form_personal_et_name.setText(userProfile.getName().toString());
                         }
@@ -138,6 +159,30 @@ public class PersonalFragment extends Fragment {
         databaseReference.child(ProfileId).child("contact").setValue(contact);
         databaseReference.child(ProfileId).child("email").setValue(email);
 
+        if (img_uri != null) {
+            if(userProfile != null && userProfile.getProfilePic() != null && !userProfile.getProfilePic().isEmpty()){
+                storageReference.child(userProfile.getProfilePic()).delete();
+            }
+            try {
+                img_uri_name = URLEncoder.encode(new File(img_uri.getPath()).getName(), "UTF-8");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            Toast.makeText(getContext(), img_uri_name, Toast.LENGTH_SHORT).show();
+            storageReference.child(img_uri_name).putFile(img_uri)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    databaseReference.child(ProfileId).child("profilePic").setValue(img_uri_name);
+                }
+            });
+        }
         Toast.makeText(getContext(), "Data saved", Toast.LENGTH_SHORT).show();
     }
 
@@ -147,7 +192,7 @@ public class PersonalFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
             ImageView imageView = (ImageView) getView().findViewById(R.id.form_personal_iv_img);
-            Uri img_uri = data.getData();
+            img_uri = data.getData();
             try {
                 Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(img_uri));
                 imageView.setImageBitmap(bitmap);

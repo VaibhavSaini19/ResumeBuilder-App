@@ -5,7 +5,7 @@ import android.net.Uri;
 import java.util.ArrayList;
 
 public class Profile {
-    private String profileId, name, category;
+    private String profileId, name, category, profilePic;
     private String address, email, contact;                                 // Personal details
     private ArrayList<Education> educationArrayList = new ArrayList<>();    // Education
     private ArrayList<Experience> experienceArrayList = new ArrayList<>();  // Experience
@@ -41,6 +41,13 @@ public class Profile {
     }
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 
     public String getAddress() {
