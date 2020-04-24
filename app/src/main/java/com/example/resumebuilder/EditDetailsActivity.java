@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 public class EditDetailsActivity extends AppCompatActivity {
 
     FragmentManager fm = getSupportFragmentManager();
-    private Button btn_per, btn_edu, btn_exp, btn_skill, btn_obj, btn_pro;
+    private Button btn_per, btn_edu, btn_exp, btn_skill, btn_obj, btn_pro, btn_view_cv;
     private String ProfileId, categoryName, templateImgPath, templateFilePath;
 
     private DatabaseReference databaseReference;
@@ -36,13 +37,15 @@ public class EditDetailsActivity extends AppCompatActivity {
 
     private Profile tempProfile;
 
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_details);
 
 
-        Intent intent = getIntent();
+        intent = getIntent();
         ProfileId = intent.getStringExtra("ProfileId");
         categoryName = intent.getStringExtra("CategoryName");
         templateImgPath = intent.getStringExtra("TemplateImgPath");
@@ -115,12 +118,27 @@ public class EditDetailsActivity extends AppCompatActivity {
             }
         });
 
-
+        btn_view_cv = findViewById(R.id.view_cv_btn);
+        btn_view_cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startViewCVActivity();
+            }
+        });
 
     }
 
     public String getProfileId() {
         return ProfileId;
+    }
+
+    protected void startViewCVActivity(){
+        Intent intent2 = new Intent(getApplicationContext(), ViewCVActivity.class);
+        intent2.putExtra("ProfileId", ProfileId);
+        intent2.putExtra("CategoryName", categoryName);
+        intent2.putExtra("TemplateFilePath", templateFilePath);
+        intent2.putExtra("TemplateImgPath", templateImgPath);
+        startActivity(intent2);
     }
 
     protected void addFormFragment(String fragName){
