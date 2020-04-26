@@ -20,6 +20,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.Task;
@@ -48,6 +49,8 @@ public class ViewCVActivity extends AppCompatActivity {
     Gson gson = new Gson();
     String json, postData;
 
+    private String firebaseDatabaseUrl = "https://resume-builder-70a26.web.app/";
+
     private WebView webView;
     private ProgressBar progressBar;
 
@@ -65,50 +68,25 @@ public class ViewCVActivity extends AppCompatActivity {
         templateFilePath = intent.getStringExtra("TemplateFilePath");
 
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/profiles");
-        storageReference = FirebaseStorage.getInstance().getReference("users/"+user.getUid());
-
-        databaseReference.child(ProfileId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        userProfile = dataSnapshot.getValue(Profile.class);
-//                        Task d = storageReference.child(userProfile.getProfilePic()).getBytes(1024*1024);
-                        json = gson.toJson(userProfile);
-                        try {
-                            postData = "data=" + URLEncoder.encode(json, "UTF-8");
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                        webView.postUrl(templateFilePath, postData.getBytes());
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        databaseError.toException();
-                    }
-                });
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
 
         webView = findViewById(R.id.webview);
-        webView.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
+
+        webView.clearCache(true);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setUseWideViewPort(true);
-        webView.setInitialScale(100);
-//        webView.getSettings().setUserAgentString("Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3");
-        webView.setVerticalScrollBarEnabled(true);
-        webView.setHorizontalScrollBarEnabled(true);
-        webView.setScrollbarFadingEnabled(false);
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUserAgentString("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36");
+        webView.setInitialScale(100);
+        webView.setVerticalScrollBarEnabled(true);
+        webView.setHorizontalScrollBarEnabled(true);
+        webView.setScrollbarFadingEnabled(false);
+
+        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        webView.setScrollbarFadingEnabled(false);
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         webView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
@@ -121,24 +99,33 @@ public class ViewCVActivity extends AppCompatActivity {
                 }
             }
         });
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+            @Override
+            public void onPageFinished(WebView view, String url){
+                String javaScript = "javascript:getDataFromFirebase('"+user.getUid()+"', '"+ProfileId+"')";
+                webView.loadUrl(javaScript);
+            }
+        });
+//        Toast.makeText(getApplicationContext(), firebaseDatabaseUrl+templateFilePath, Toast.LENGTH_LONG).show();
+        webView.loadUrl(firebaseDatabaseUrl+templateFilePath);
     }
 
     public void startDownloadCV(){
         createWebPrintJob(webView);
     }
     private void createWebPrintJob(WebView webView) {
-
         // Get a PrintManager instance
         PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
-
         String jobName = getString(R.string.app_name) + " Document";
-
         // Get a print adapter instance
         PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);
-
         // Create a print job with name and adapter instance
         PrintJob printJob = printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
-
         // Save the job object for later status checking
 //        printJobs.add(printJob);
     }
