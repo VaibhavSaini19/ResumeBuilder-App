@@ -12,23 +12,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Profile"
+        android:fontFamily="@font/raleway_bold"
         android:textSize="20sp"
         android:textColor="@android:color/black"/>
 
-    <androidx.cardview.widget.CardView
+    <Button
+        android:id="@+id/btn_add_profile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/btn_add_profile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Add Profile"/>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:layout_height="wrap_content"
+        android:text="Add Profile"
+        android:layout_marginTop="10dp"
+        app:icon="@drawable/ic_add_black_24dp"
+        app:iconGravity="textStart"
+        android:textSize="16sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_profile_list"

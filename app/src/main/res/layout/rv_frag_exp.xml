@@ -2,100 +2,147 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/form_exp_ll_form"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="10dp"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/form_exp_til_company"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:errorEnabled="true"
-        app:hintTextAppearance="@android:style/TextAppearance.Medium">
+        android:layout_margin="4dp"
+        app:cardCornerRadius="10dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="10dp"
+        app:cardBackgroundColor="@android:color/white"
+        android:background="@android:color/white">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/form_exp_et_company"
+        <LinearLayout
+            android:id="@+id/form_exp_ll_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Company Name" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/form_exp_til_job"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:errorEnabled="true"
-        app:hintTextAppearance="@android:style/TextAppearance.Medium">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/form_exp_et_job"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Job Title" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/form_exp_til_sdate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true"
-            android:layout_weight="1"
-            app:hintTextAppearance="@android:style/TextAppearance.Medium">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/form_exp_et_sdate"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/form_exp_til_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Start Date" />
+                app:errorEnabled="true"
+                android:layout_marginTop="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/form_exp_et_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:hint="Company Name" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/form_exp_til_edate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true"
-            android:layout_weight="1"
-            app:hintTextAppearance="@android:style/TextAppearance.Medium">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/form_exp_et_edate"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/form_exp_til_job"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="End Date" />
+                android:layout_marginTop="10dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/form_exp_et_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:hint="Job Title" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/form_exp_til_desc"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        app:errorEnabled="true"
-        app:hintTextAppearance="@android:style/TextAppearance.Medium">
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/form_exp_et_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/form_exp_til_sdate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    app:errorEnabled="true"
+                    android:layout_weight="1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/form_exp_et_sdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:hint="Start Date" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/form_exp_til_edate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:errorEnabled="true"
+                    android:layout_weight="1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/form_exp_et_edate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:hint="End Date" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/form_exp_til_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:hintTextAppearance="@android:style/TextAppearance.Medium">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/form_exp_et_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:hint="Description" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_remove_exp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#80FF073A"
+                app:icon="@drawable/ic_delete_black_24dp"
+                app:iconGravity="textStart"
+                android:text="Remove"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 </LinearLayout>

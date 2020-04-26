@@ -93,7 +93,7 @@ public class ExperienceFragment extends Fragment {
                             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                             rv_frag_exp_list.setLayoutManager(layoutManager);
 
-                            RVFragExpAdapter rvFragExpAdapter = new RVFragExpAdapter(getContext(), experiences);
+                            RVFragExpAdapter rvFragExpAdapter = new RVFragExpAdapter(getContext(), experiences, userProfile);
                             rv_frag_exp_list.setAdapter(rvFragExpAdapter);
 
                             rvFragExpAdapter.notifyDataSetChanged();
@@ -127,10 +127,10 @@ public class ExperienceFragment extends Fragment {
         builder.setView(view);
 
         builder.setTitle("Add experience");
-        builder.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getContext(), "Cancled", Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), "Canceled", Toast.LENGTH_SHORT);
             }
         });
         builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {

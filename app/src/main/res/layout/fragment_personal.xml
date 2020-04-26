@@ -5,33 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".FormFragments.PersonalFragment"
-    android:padding="10dp"
     android:background="@android:color/white"
+    android:padding="20dp"
     android:clickable="true">
 
     <LinearLayout
-            android:id="@+id/form_personal_ll_heading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/form_personal_ll_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Edit Personal Details"
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Edit Personal Details"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/raleway_bold"/>
 
-            <ImageButton
-                android:id="@+id/form_personal_btn_cancel"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_delete_black_24dp" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/form_personal_ll_heading"
+        tools:layout_editor_absoluteX="20dp">
 
         <LinearLayout
             android:id="@+id/form_personal_ll_form"
@@ -57,11 +55,13 @@
                 android:background="@android:color/holo_blue_light"
                 android:padding="10dp"
                 android:text="Choose Image"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                app:icon="@drawable/ic_file_upload_black_24dp" />
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/form_personal_til_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -78,6 +78,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/form_personal_til_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -94,6 +95,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/form_personal_til_address"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -110,6 +112,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/form_personal_til_contact"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -124,21 +127,24 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <Button
+                android:id="@+id/form_personal_btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/holo_green_light"
+                android:text="Save"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:icon="@drawable/ic_check_black_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/form_personal_ll_form" />
+
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/form_personal_btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/holo_green_light"
-            android:text="Save"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/form_personal_ll_form" />
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -101,7 +101,7 @@ public class EducationFragment extends Fragment {
                             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                             rv_frag_edu_list.setLayoutManager(layoutManager);
 
-                            RVFragEduAdapter rvFragEduAdapter = new RVFragEduAdapter(getContext(), educations);
+                            RVFragEduAdapter rvFragEduAdapter = new RVFragEduAdapter(getContext(), educations, userProfile);
                             rv_frag_edu_list.setAdapter(rvFragEduAdapter);
 
                             rvFragEduAdapter.notifyDataSetChanged();
@@ -136,10 +136,10 @@ public class EducationFragment extends Fragment {
         builder.setView(view);
 
         builder.setTitle("Add education");
-        builder.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("Cancle", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getContext(), "Cancled", Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), "Canceled", Toast.LENGTH_SHORT);
             }
         });
         builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {

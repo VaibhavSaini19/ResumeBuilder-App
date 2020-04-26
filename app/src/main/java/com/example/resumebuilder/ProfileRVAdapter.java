@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.security.PrivateKey;
 import java.util.ArrayList;
@@ -31,6 +36,11 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
     private RecyclerView rv_template_list;
 
     private AlertDialog alertDialog;
+
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/profiles");
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference("users/"+user.getUid());
 
     // Constructor for the Class
     public ProfileRVAdapter(Context context, ArrayList<Profile> profileList, String name, String templateImgPath, String templateFilePath) {
@@ -65,6 +75,7 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
 
         // Set the data to the views here
         holder.setProfileCount(position);
+        holder.setProfileImage(profile.getProfilePic());
         holder.setProfileName(profile.getName());
         holder.setProfileCategory(profile.getCategory());
 
@@ -76,6 +87,7 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
     // This is your ViewHolder class that helps to populate data to the view
     public class ContactHolder extends RecyclerView.ViewHolder {
 
+        private ImageView pImage;
         private TextView pName, pCategory, pCount;
         private Button editBtn, deleteBtn;
         private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -83,6 +95,7 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
 
         public ContactHolder(View itemView) {
             super(itemView);
+            pImage = itemView.findViewById(R.id.profile_img);
             pName = itemView.findViewById(R.id.profile_name);
             pCategory = itemView.findViewById(R.id.profile_category);
             pCount = itemView.findViewById(R.id.profile_count);
@@ -104,23 +117,28 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
             deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int pos = getAdapterPosition();
+                    final int pos = getAdapterPosition();
                     databaseReference.child("users/"+user.getUid()+"/profiles")
-                            .child(profileList.get(pos).getProfileId()).removeValue();
+                            .child(profileList.get(pos).getProfileId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            profileList.remove(pos);
+                            notifyItemRemoved(pos);
+                        }
+                    });
                 }
             });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO: View CV on click
-//                    int pos = getAdapterPosition();
-//                    Intent intent = new Intent(view.getContext(), DisplayTemplate.class);
-//                    intent.putExtra("CategoryName", name);
-//                    intent.putExtra("TemplateImgPath", templateImgPath);
-//                    intent.putExtra("TemplateFilePath", templateFilePath);
-//                    intent.putExtra("ProfileId", profileList.get(pos).getProfileId());
-//                    view.getContext().startActivity(intent);
+                    int pos = getAdapterPosition();
+                    Intent intent = new Intent(view.getContext(), ViewCVActivity.class);
+                    intent.putExtra("CategoryName", name);
+                    intent.putExtra("TemplateImgPath", templateImgPath);
+                    intent.putExtra("TemplateFilePath", templateFilePath);
+                    intent.putExtra("ProfileId", profileList.get(pos).getProfileId());
+                    view.getContext().startActivity(intent);
                 }
             });
         }
@@ -129,10 +147,24 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
             pCount.setText(String.valueOf(pos+1));
         }
 
-        public void setProfileName(String name) {
-            pName.setText(name);
+        public void setProfileImage(String profileImage){
+            if(profileImage != null) {
+                Glide.with(mContext)
+                        .load(storageReference.child(profileImage))
+                        .into(pImage);
+            }
         }
 
-        public void setProfileCategory(String category) { pCategory.setText(category); }
+        public void setProfileName(String name) {
+            if(name != null) {
+                pName.setText(name);
+            }
+        }
+
+        public void setProfileCategory(String category) {
+            if (category != null) {
+                pCategory.setText(category);
+            }
+        }
     }
 }

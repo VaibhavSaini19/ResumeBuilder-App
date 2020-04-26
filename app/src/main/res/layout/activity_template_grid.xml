@@ -14,6 +14,7 @@
         android:text="Fashion Designer"
         android:textColor="@android:color/black"
         android:textSize="20sp"
+        android:fontFamily="@font/raleway_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#dddddd"
+        android:background="#80ffe8"
         android:gravity="center_horizontal"
         android:horizontalSpacing="5dp"
         android:numColumns="2"

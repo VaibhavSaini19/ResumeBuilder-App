@@ -4,12 +4,17 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -18,11 +23,17 @@ public class RVFragProAdapter extends RecyclerView.Adapter<RVFragProAdapter.proH
     // List to store all the contact details
     private ArrayList<Profile.Project> projectArrayList;
     private Context mContext;
+    private Profile userProfile;
+
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/profiles");
 
     // Constructor for the Class
-    public RVFragProAdapter(Context context, ArrayList<Profile.Project> projectArrayList) {
+    public RVFragProAdapter(Context context, ArrayList<Profile.Project> projectArrayList, Profile userProfile) {
         this.mContext = context;
         this.projectArrayList = projectArrayList;
+        this.userProfile = userProfile;
     }
 
     // This method creates views for the RecyclerView by inflating the layout
@@ -58,10 +69,23 @@ public class RVFragProAdapter extends RecyclerView.Adapter<RVFragProAdapter.proH
     public class proHolder extends RecyclerView.ViewHolder {
 
         TextInputEditText title_et, desc_et;
+        Button btn_remove_pro;
         public proHolder(View itemView) {
             super(itemView);
             title_et = itemView.findViewById(R.id.form_pro_et_title);
             desc_et = itemView.findViewById(R.id.form_pro_et_desc);
+
+            btn_remove_pro = itemView.findViewById(R.id.btn_remove_pro);
+            btn_remove_pro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final int pos = getAdapterPosition();
+                    projectArrayList.remove(pos);
+                    userProfile.setProjectArrayList(projectArrayList);
+                    databaseReference.child(userProfile.getProfileId()).setValue(userProfile);
+                    notifyItemRemoved(pos);
+                }
+            });
         }
 
         public void setProject(Profile.Project project) {

@@ -95,7 +95,7 @@ public class ProjectFragment extends Fragment {
                             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                             rv_frag_project_list.setLayoutManager(layoutManager);
 
-                            RVFragProAdapter rvFragProAdapter = new RVFragProAdapter(getContext(), projects);
+                            RVFragProAdapter rvFragProAdapter = new RVFragProAdapter(getContext(), projects, userProfile);
                             rv_frag_project_list.setAdapter(rvFragProAdapter);
 
                             rvFragProAdapter.notifyDataSetChanged();
@@ -126,10 +126,10 @@ public class ProjectFragment extends Fragment {
         builder.setView(view);
 
         builder.setTitle("Add skill");
-        builder.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getContext(), "Cancled", Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), "Canceled", Toast.LENGTH_SHORT);
             }
         });
         builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {

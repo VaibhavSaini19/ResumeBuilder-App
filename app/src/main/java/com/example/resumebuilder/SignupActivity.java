@@ -25,7 +25,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     private Button btn_signup;
     private EditText et_signup_email, et_signup_password;
-    private TextView tv_signin;
+    private TextView tv_login;
 
     private ProgressDialog progressDialog;
 
@@ -45,12 +45,12 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         btn_signup = findViewById(R.id.btn_signup);
-        tv_signin = findViewById(R.id.tv_signin);
+        tv_login = findViewById(R.id.tv_login);
         et_signup_email = findViewById(R.id.et_signup_email);
         et_signup_password = findViewById(R.id.et_signup_password);
 
         btn_signup.setOnClickListener(this);
-        tv_signin.setOnClickListener(this);
+        tv_login.setOnClickListener(this);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         if (view == btn_signup){
             registerUser();
         }
-        if (view == tv_signin){
+        if (view == tv_login){
             finish();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);

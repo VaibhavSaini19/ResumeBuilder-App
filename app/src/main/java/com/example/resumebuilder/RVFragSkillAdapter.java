@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -31,11 +36,17 @@ public class RVFragSkillAdapter extends RecyclerView.Adapter<RVFragSkillAdapter.
     // List to store all the contact details
     private ArrayList<Profile.Skill> skillArrayList;
     private Context mContext;
+    private Profile userProfile;
+
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/profiles");
 
     // Constructor for the Class
-    public RVFragSkillAdapter(Context context, ArrayList<Profile.Skill> skillArrayList) {
+    public RVFragSkillAdapter(Context context, ArrayList<Profile.Skill> skillArrayList, Profile userProfile) {
         this.mContext = context;
         this.skillArrayList = skillArrayList;
+        this.userProfile = userProfile;
     }
 
     // This method creates views for the RecyclerView by inflating the layout
@@ -73,6 +84,8 @@ public class RVFragSkillAdapter extends RecyclerView.Adapter<RVFragSkillAdapter.
         TextInputEditText skill_et;
         RadioButton rbBeginner, rbIntermediate, rbAdvanced, rbExpert;
         String skill_lvl;
+        Button btn_remove_skill;
+
         public skillHolder(View itemView) {
             super(itemView);
             skill_et = itemView.findViewById(R.id.form_skill_et_skill);
@@ -84,6 +97,18 @@ public class RVFragSkillAdapter extends RecyclerView.Adapter<RVFragSkillAdapter.
             rbAdvanced.setEnabled(false);
             rbExpert = itemView.findViewById(R.id.form_skill_radio_expert);
             rbExpert.setEnabled(false);
+
+            btn_remove_skill = itemView.findViewById(R.id.btn_remove_skill);
+            btn_remove_skill.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final int pos = getAdapterPosition();
+                    skillArrayList.remove(pos);
+                    userProfile.setSkillArrayList(skillArrayList);
+                    databaseReference.child(userProfile.getProfileId()).setValue(userProfile);
+                    notifyItemRemoved(pos);
+                }
+            });
         }
 
         public void setSkill(Profile.Skill skill) {

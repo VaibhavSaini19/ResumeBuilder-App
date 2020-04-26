@@ -97,7 +97,7 @@ public class SkillsFragment extends Fragment {
                             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                             rv_frag_skill_list.setLayoutManager(layoutManager);
 
-                            RVFragSkillAdapter rvFragSkillAdapter = new RVFragSkillAdapter(getContext(), skills);
+                            RVFragSkillAdapter rvFragSkillAdapter = new RVFragSkillAdapter(getContext(), skills, userProfile);
                             rv_frag_skill_list.setAdapter(rvFragSkillAdapter);
 
                             rvFragSkillAdapter.notifyDataSetChanged();
@@ -148,10 +148,10 @@ public class SkillsFragment extends Fragment {
         builder.setView(view);
 
         builder.setTitle("Add skill");
-        builder.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getContext(), "Cancled", Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), "Canceled", Toast.LENGTH_SHORT);
             }
         });
         builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {

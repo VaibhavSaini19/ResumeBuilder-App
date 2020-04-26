@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
 
     <LinearLayout
         android:id="@+id/form_skill_ll_form"
@@ -18,15 +20,15 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/form_skill_til_skill"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="60dp"
             app:errorEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/form_skill_et_skill"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:hint="Skill" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -35,7 +37,9 @@
             android:id="@+id/form_skill_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
             <RadioButton android:id="@+id/form_skill_radio_beginner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

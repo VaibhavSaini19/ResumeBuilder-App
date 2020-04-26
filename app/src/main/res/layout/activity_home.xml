@@ -27,12 +27,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Templates"
-            android:textSize="30sp"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/raleway_bold"
             android:padding="10dp"
-            android:textStyle="bold|italic"
+            android:text="Templates"
             android:textColor="@android:color/holo_blue_light"
-            android:layout_gravity="center_horizontal"/>
+            android:textSize="30sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_category_list"

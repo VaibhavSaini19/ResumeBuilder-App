@@ -10,16 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:padding="5dp"
+        android:paddingTop="5dp"
         android:gravity="center_vertical"
         android:textColor="@android:color/black"
-        android:fontFamily="sans-serif"/>
+        android:fontFamily="@font/raleway_bold"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_template_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingTop="8dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>

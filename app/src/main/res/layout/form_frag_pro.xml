@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
 
     <LinearLayout
         android:id="@+id/form_pro_ll_form"
@@ -21,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:errorEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -35,14 +38,15 @@
             android:id="@+id/form_pro_til_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             app:errorEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:hintTextAppearance="@android:style/TextAppearance.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/form_pro_et_desc"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:hint="Description" />
 
         </com.google.android.material.textfield.TextInputLayout>
