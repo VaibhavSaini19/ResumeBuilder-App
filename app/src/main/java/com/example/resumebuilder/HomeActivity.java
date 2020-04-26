@@ -1,17 +1,16 @@
 package com.example.resumebuilder;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,9 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
+public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private Button btn_logout;
@@ -58,24 +56,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tv_user = findViewById(R.id.tv_user);
         tv_user.setText("Welcome "+user.getEmail());
 
-        btn_logout = findViewById(R.id.btn_logout);
-        btn_logout.setOnClickListener(this);
-
         categoryList = new ArrayList<>();
         rv_cateory_list = findViewById(R.id.recycler_view_category_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv_cateory_list.setLayoutManager(layoutManager);
 
-//        TODO: Fetch data for 'categoryList' from DB
         progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         databaseReferenceCategory.child("category")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i=0, count = (int) dataSnapshot.getChildrenCount();
                         for(DataSnapshot snapshot: dataSnapshot.getChildren()){
 //                            Log.d("TAG", snapshot.getValue().toString());
                             categoryList.add(snapshot.getValue(Category.class));
+                            progressBar.setProgress((100/count)*(++i));
                         }
+                        progressBar.setVisibility(View.GONE);
                         categoryRVAdapter = new CategoryRVAdapter(getApplicationContext(), categoryList);
                         rv_cateory_list.setAdapter(categoryRVAdapter);
 
@@ -85,16 +83,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         throw databaseError.toException();
+
                     }
                 });
     }
 
     @Override
-    public void onClick(View view) {
-        if (view == btn_logout){
-            firebaseAuth.signOut();
-            finish();
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.btn_logout:
+                startLogout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
+
+    public void startLogout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+    }
+
 }

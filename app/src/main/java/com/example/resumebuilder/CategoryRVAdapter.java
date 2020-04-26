@@ -72,7 +72,7 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.Co
             cName = itemView.findViewById(R.id.category_name);
             rv_template_list = itemView.findViewById(R.id.recycler_view_template_list);
 
-            cName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_forward_black_24dp, 0, 0, 0);
+            cName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_forward_black_24dp, 0);
             cName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

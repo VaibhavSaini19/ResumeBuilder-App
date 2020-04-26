@@ -12,7 +12,8 @@
         android:textSize="18sp"
         android:padding="5dp"
         android:gravity="center_vertical"
-        android:text="Fashion Designer"/>
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_template_list"

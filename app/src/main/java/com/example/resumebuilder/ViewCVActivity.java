@@ -133,7 +133,7 @@ public class ViewCVActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu_view_cv, menu);
         return true;
     }
     @Override

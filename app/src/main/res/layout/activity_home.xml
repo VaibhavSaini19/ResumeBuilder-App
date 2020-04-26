@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity"
-    android:orientation="vertical"
-    android:padding="15dp">
+    android:orientation="vertical">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -14,32 +13,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Templates"
-        android:textSize="30sp"
-        android:padding="10dp"
-        android:textStyle="bold|italic"
-        android:textColor="@android:color/holo_blue_light"
-        android:layout_gravity="center_horizontal"/>
-
-    <TextView
-        android:id="@+id/tv_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Logout" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_category_list"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Templates"
+            android:textSize="30sp"
+            android:padding="10dp"
+            android:textStyle="bold|italic"
+            android:textColor="@android:color/holo_blue_light"
+            android:layout_gravity="center_horizontal"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_category_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 </LinearLayout>
