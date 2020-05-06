@@ -7,7 +7,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -80,6 +82,12 @@ public class EditDetailsActivity extends AppCompatActivity {
         btn_skill = findViewById(R.id.btn_skill_detail);
         btn_obj = findViewById(R.id.btn_objective_detail);
         btn_pro = findViewById(R.id.btn_project_detail);
+//        btn_per.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_personal, 0, 0, 0);
+//        btn_edu.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_education, 0, 0, 0);
+//        btn_exp.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_experience, 0, 0, 0);
+//        btn_skill.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_skill, 0, 0, 0);
+//        btn_obj.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_objective, 0, 0, 0);
+//        btn_pro.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_project, 0, 0, 0);
 
         btn_per.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +163,30 @@ public class EditDetailsActivity extends AppCompatActivity {
         }
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.btn_logout:
+                startLogout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void startLogout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
 }

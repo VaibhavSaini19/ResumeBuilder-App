@@ -16,13 +16,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btn_login;
-    private EditText et_login_email, et_login_password;
+    private TextInputLayout til_login_email, til_login_password;
+    private TextInputEditText et_login_email, et_login_password;
     private TextView tv_signup;
 
     private ProgressDialog progressDialog;
@@ -46,6 +49,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tv_signup = findViewById(R.id.tv_signup);
         et_login_email = findViewById(R.id.et_login_email);
         et_login_password = findViewById(R.id.et_login_password);
+        til_login_email = findViewById(R.id.til_login_email);
+        til_login_password = findViewById(R.id.til_login_password);
 
         btn_login.setOnClickListener(this);
         tv_signup.setOnClickListener(this);
@@ -68,12 +73,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String password = et_login_password.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
-            Toast.makeText(this, "Please enter an Email", Toast.LENGTH_SHORT).show();
+            til_login_email.setError("Email is required");
+//            Toast.makeText(this, "Please enter an Email", Toast.LENGTH_SHORT).show();
             return;
+        }else{
+            til_login_email.setError(null);
         }
         if (TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Please enter a Password", Toast.LENGTH_SHORT).show();
+            til_login_password.setError("Password is required");
+//            Toast.makeText(this, "Please enter a Password", Toast.LENGTH_SHORT).show();
             return;
+        }else{
+            til_login_password.setError(null);
         }
 
         progressDialog.setMessage("Signing in...");

@@ -8,10 +8,13 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
         android:layout_margin="8dp"
+        android:layout_gravity="center"
+        android:foregroundGravity="center"
         app:cardCornerRadius="10dp"
         card_view:cardUseCompatPadding="true"
-        card_view:cardElevation="10dp"
+        card_view:cardElevation="16dp"
         app:cardBackgroundColor="@android:color/white">
 
         <ImageView

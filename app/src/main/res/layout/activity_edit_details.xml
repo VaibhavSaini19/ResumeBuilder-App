@@ -34,14 +34,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginBottom="20dp"/>
 
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 app:cardCornerRadius="10dp"
                 card_view:cardUseCompatPadding="true"
-                card_view:cardElevation="4dp"
+                card_view:cardElevation="6dp"
                 app:cardBackgroundColor="@android:color/white"
                 android:background="@android:color/white">
 
@@ -52,8 +51,9 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="@android:color/white"
                     android:textColor="@android:color/black"
-                    app:icon="@drawable/ic_edit_black_24dp"
-                    app:iconTint="@android:color/black"
+                    app:icon="@drawable/ic_personal"
+                    app:iconTint="@android:color/transparent"
+                    app:iconTintMode="add"
                     app:iconGravity="end"
                     android:text="Personal Details"
                     android:gravity="center_vertical"/>
@@ -63,11 +63,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 app:cardCornerRadius="10dp"
                 card_view:cardUseCompatPadding="true"
-                card_view:cardElevation="4dp"
+                card_view:cardElevation="6dp"
                 app:cardBackgroundColor="@android:color/white"
                 android:background="@android:color/white">
 
@@ -78,8 +76,9 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="@android:color/white"
                     android:textColor="@android:color/black"
-                    app:icon="@drawable/ic_edit_black_24dp"
-                    app:iconTint="@android:color/black"
+                    app:icon="@drawable/ic_education"
+                    app:iconTint="@android:color/transparent"
+                    app:iconTintMode="add"
                     app:iconGravity="end"
                     android:text="Educational Details"
                     android:gravity="center_vertical"/>
@@ -89,11 +88,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="6dp"
                 card_view:cardUseCompatPadding="true"
-                card_view:cardElevation="4dp"
+                card_view:cardElevation="6dp"
                 app:cardBackgroundColor="@android:color/white"
                 android:background="@android:color/white">
 
@@ -104,8 +101,9 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="@android:color/white"
                     android:textColor="@android:color/black"
-                    app:icon="@drawable/ic_edit_black_24dp"
-                    app:iconTint="@android:color/black"
+                    app:icon="@drawable/ic_experience"
+                    app:iconTint="@android:color/transparent"
+                    app:iconTintMode="add"
                     app:iconGravity="end"
                     android:text="Experience"
                     android:gravity="center_vertical"/>
@@ -115,11 +113,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 app:cardCornerRadius="10dp"
                 card_view:cardUseCompatPadding="true"
-                card_view:cardElevation="4dp"
+                card_view:cardElevation="6dp"
                 app:cardBackgroundColor="@android:color/white"
                 android:background="@android:color/white">
 
@@ -130,8 +126,9 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="@android:color/white"
                     android:textColor="@android:color/black"
-                    app:icon="@drawable/ic_edit_black_24dp"
-                    app:iconTint="@android:color/black"
+                    app:icon="@drawable/ic_skill"
+                    app:iconTint="@android:color/transparent"
+                    app:iconTintMode="add"
                     app:iconGravity="end"
                     android:text="Skills"
                     android:gravity="center_vertical" />
@@ -141,11 +138,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 app:cardCornerRadius="10dp"
                 card_view:cardUseCompatPadding="true"
-                card_view:cardElevation="4dp"
+                card_view:cardElevation="6dp"
                 app:cardBackgroundColor="@android:color/white"
                 android:background="@android:color/white">
 
@@ -156,8 +151,9 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="@android:color/white"
                     android:textColor="@android:color/black"
-                    app:icon="@drawable/ic_edit_black_24dp"
-                    app:iconTint="@android:color/black"
+                    app:icon="@drawable/ic_objective"
+                    app:iconTint="@android:color/transparent"
+                    app:iconTintMode="add"
                     app:iconGravity="end"
                     android:text="Objective"
                     android:gravity="center_vertical"/>
@@ -167,11 +163,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 app:cardCornerRadius="10dp"
                 card_view:cardUseCompatPadding="true"
-                card_view:cardElevation="4dp"
+                card_view:cardElevation="6dp"
                 app:cardBackgroundColor="@android:color/white"
                 android:background="@android:color/white">
 
@@ -182,26 +176,30 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="@android:color/white"
                     android:textColor="@android:color/black"
-                    app:icon="@drawable/ic_edit_black_24dp"
-                    app:iconTint="@android:color/black"
+                    app:icon="@drawable/ic_project"
+                    app:iconTint="@android:color/transparent"
+                    app:iconTintMode="add"
                     app:iconGravity="end"
                     android:text="Projects"
                     android:gravity="center_vertical" />
 
             </com.google.android.material.card.MaterialCardView>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
             <Button
                 android:id="@+id/view_cv_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/holo_blue_light"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:text="View CV"
                 android:textSize="20sp"
                 app:icon="@drawable/ic_remove_red_eye_black_24dp"
-                app:iconGravity="textStart"
-                android:layout_marginTop="150dp"/>
+                app:iconGravity="textStart"/>
 
         </LinearLayout>
 

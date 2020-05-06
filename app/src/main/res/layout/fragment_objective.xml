@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".FormFragments.ObjectiveFragment"
     android:background="@android:color/white"
-    android:padding="20dp"
+    android:padding="10dp"
     android:clickable="true">
 
         <LinearLayout
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:textColor="@android:color/white"
-            android:background="@android:color/holo_green_light"
+            android:backgroundTint="@color/success"
             android:text="Save"
             android:textSize="18sp"
             app:icon="@drawable/ic_check_black_24dp"

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,6 +25,7 @@ import java.util.regex.Pattern;
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btn_signup;
+    private TextInputLayout til_signup_email, til_signup_password;
     private EditText et_signup_email, et_signup_password;
     private TextView tv_login;
 
@@ -48,6 +50,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         tv_login = findViewById(R.id.tv_login);
         et_signup_email = findViewById(R.id.et_signup_email);
         et_signup_password = findViewById(R.id.et_signup_password);
+        til_signup_email = findViewById(R.id.til_signup_email);
+        til_signup_password = findViewById(R.id.til_signup_password);
 
         btn_signup.setOnClickListener(this);
         tv_login.setOnClickListener(this);
@@ -72,11 +76,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pat = Pattern.compile(emailRegex);
 
-        if(TextUtils.isEmpty(email) || !pat.matcher(email).matches()){
-            Toast.makeText(this, "Please enter valid Email", Toast.LENGTH_SHORT).show();
+        if(TextUtils.isEmpty(email)){
+            til_signup_email.setError("Email is required");
+            return;
+        }else{
+            til_signup_email.setError(null);
+        }
+        if(!pat.matcher(email).matches()){
+            Toast.makeText(this, "Please enter a valid Email", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(password) || password.length() < 6){
+        if (TextUtils.isEmpty(password)){
+            til_signup_password.setError("Password is required");
+            return;
+        }else{
+            til_signup_password.setError(null);
+        }
+        if(password.length() < 6){
             Toast.makeText(this, "Password must be atleast 6 chars", Toast.LENGTH_SHORT).show();
             return;
         }

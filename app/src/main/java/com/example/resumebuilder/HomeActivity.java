@@ -53,8 +53,8 @@ public class HomeActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         databaseReferenceCategory = FirebaseDatabase.getInstance().getReference();
 
-        tv_user = findViewById(R.id.tv_user);
-        tv_user.setText("Welcome "+user.getEmail());
+//        tv_user = findViewById(R.id.tv_user);
+//        tv_user.setText("Welcome " + user.getEmail());
 
         categoryList = new ArrayList<>();
         rv_cateory_list = findViewById(R.id.recycler_view_category_list);

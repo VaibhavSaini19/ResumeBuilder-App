@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CategoryGridActivity"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/category_name_gv"
@@ -14,23 +15,21 @@
         android:text="Fashion Designer"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:fontFamily="@font/raleway_bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fontFamily="@font/raleway_bold" />
 
     <GridView
         android:id="@+id/template_gv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:background="#80ffe8"
-        android:gravity="center_horizontal"
-        android:horizontalSpacing="5dp"
+        android:background="#300984e3"
+        android:gravity="center_horizontal|center_vertical"
+        android:foregroundGravity="center_horizontal|center_vertical"
         android:numColumns="2"
-        android:padding="5dp"
+        android:padding="8dp"
         android:verticalSpacing="5dp"
         app:layout_constraintTop_toBottomOf="@+id/category_name_gv"
         tools:layout_editor_absoluteX="10dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
