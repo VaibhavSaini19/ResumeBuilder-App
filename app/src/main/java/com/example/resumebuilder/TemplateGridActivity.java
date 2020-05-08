@@ -2,7 +2,9 @@ package com.example.resumebuilder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,13 +29,18 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
+
+import static android.view.View.GONE;
 
 public class TemplateGridActivity extends AppCompatActivity {
 
     private String categoryName;
     private Category category;
     private TextView category_name_gv;
+
+    private ProgressBar progressBar;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReferenceCategory;
@@ -61,6 +69,13 @@ public class TemplateGridActivity extends AppCompatActivity {
             }
         });
 
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setMax(100);
+        progressBar.setProgress(0);
+        progressBar.setIndeterminate(true);
+        progressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
+
         databaseReferenceCategory
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -81,6 +96,8 @@ public class TemplateGridActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
+
+                        progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -112,5 +129,24 @@ public class TemplateGridActivity extends AppCompatActivity {
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isInternetAvailable()){
+            Toast.makeText(this, "Internet Unavailable. Try again later...", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(GONE);
+        }
+    }
+
+    public boolean isInternetAvailable() {
+        try {
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+        }catch (Exception e){
+            return false;
+        }
     }
 }

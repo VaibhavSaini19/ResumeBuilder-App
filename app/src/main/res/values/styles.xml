@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- ActionBar-->
         <item name="android:actionBarStyle">@style/myTheme.ActionBar</item>
 
@@ -35,11 +35,12 @@
     </style>
 
     <style name="myTheme.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:titleTextStyle">@style/myTheme.ActionBar.Text</item>
+        <item name="titleTextStyle">@style/myTheme.ActionBar.Text</item>
+        <item name="android:background">@drawable/appbar_gradient</item>
     </style>
 
     <style name="myTheme.ActionBar.Text" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/my_app_color_on_primary</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

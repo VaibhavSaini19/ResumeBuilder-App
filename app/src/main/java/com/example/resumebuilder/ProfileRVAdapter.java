@@ -27,7 +27,7 @@ import com.google.firebase.storage.StorageReference;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 
-public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.ContactHolder> {
+public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.ProfileHolder> {
 
     // List to store all the contact details
     private String name, templateImgPath, templateFilePath;
@@ -54,13 +54,13 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
     // This method creates views for the RecyclerView by inflating the layout
     // Into the viewHolders which helps to display the items in the RecyclerView
     @Override
-    public ContactHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProfileHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
         // Inflate the layout view you have created for the list rows here
         View view = layoutInflater.inflate(R.layout.rv_profile_list, parent, false);
 //        alertDialog = confirmDeleteDialog();
-        return new ContactHolder(view);
+        return new ProfileHolder(view);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
 
     // This method is called when binding the data to the views being created in RecyclerView
     @Override
-    public void onBindViewHolder(@NonNull ContactHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ProfileHolder holder, final int position) {
         final Profile profile = profileList.get(position);
 
         // Set the data to the views here
@@ -85,7 +85,7 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
     }
 
     // This is your ViewHolder class that helps to populate data to the view
-    public class ContactHolder extends RecyclerView.ViewHolder {
+    public class ProfileHolder extends RecyclerView.ViewHolder {
 
         private ImageView pImage;
         private TextView pName, pCategory, pCount;
@@ -93,7 +93,7 @@ public class ProfileRVAdapter extends RecyclerView.Adapter<ProfileRVAdapter.Cont
         private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        public ContactHolder(View itemView) {
+        public ProfileHolder(View itemView) {
             super(itemView);
             pImage = itemView.findViewById(R.id.profile_img);
             pName = itemView.findViewById(R.id.profile_name);

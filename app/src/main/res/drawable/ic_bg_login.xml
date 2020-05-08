@@ -2,7 +2,7 @@
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="350"
-    android:viewportHeight="675">
+    android:viewportHeight="650">
 
     <path
       android:pathData="M99 251C65.4 251 14 268.333 0 284V0H375V284C352.333 299.667 322.5 321 277 321C237.767 321 208 299 189 284C170 269 132.6 251 99 251Z"

@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btn_login;
     private TextInputLayout til_login_email, til_login_password;
     private TextInputEditText et_login_email, et_login_password;
-    private TextView tv_signup;
+    private TextView tv_signup, tv_forgot_password;
 
     private ProgressDialog progressDialog;
 
@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btn_login = findViewById(R.id.btn_login);
         tv_signup = findViewById(R.id.tv_signup);
+        tv_forgot_password = findViewById(R.id.tv_forgot_password);
         et_login_email = findViewById(R.id.et_login_email);
         et_login_password = findViewById(R.id.et_login_password);
         til_login_email = findViewById(R.id.til_login_email);
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btn_login.setOnClickListener(this);
         tv_signup.setOnClickListener(this);
+        tv_forgot_password.setOnClickListener(this);
     }
 
     @Override
@@ -65,6 +67,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             finish();
             Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
             startActivity(intent);
+        }
+        if (view == tv_forgot_password){
+            String email = et_login_email.getText().toString().trim();
+            if(TextUtils.isEmpty(email)) {
+                Toast.makeText(this, "Please enter Email address to reset Password", Toast.LENGTH_SHORT).show();
+            }else{
+                firebaseAuth.sendPasswordResetEmail(email);
+                Toast.makeText(this, "Reset link sent. Check Email to reset Password", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

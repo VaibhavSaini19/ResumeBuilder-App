@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
+
+import static android.view.View.GONE;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -63,6 +69,11 @@ public class HomeActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.setMax(100);
+        progressBar.setProgress(0);
+        progressBar.setIndeterminate(true);
+        progressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
+
         databaseReferenceCategory.child("category")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -71,9 +82,10 @@ public class HomeActivity extends AppCompatActivity {
                         for(DataSnapshot snapshot: dataSnapshot.getChildren()){
 //                            Log.d("TAG", snapshot.getValue().toString());
                             categoryList.add(snapshot.getValue(Category.class));
-                            progressBar.setProgress((100/count)*(++i));
+//                            int val = (100/count)*(++i);
+//                            progressBar.setProgress(val);
                         }
-                        progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(GONE);
                         categoryRVAdapter = new CategoryRVAdapter(getApplicationContext(), categoryList);
                         rv_cateory_list.setAdapter(categoryRVAdapter);
 
@@ -112,4 +124,22 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isInternetAvailable()){
+            Toast.makeText(this, "Internet Unavailable. Try again later...", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(GONE);
+        }
+    }
+
+    public boolean isInternetAvailable() {
+        try {
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+        }catch (Exception e){
+            return false;
+        }
+    }
 }
