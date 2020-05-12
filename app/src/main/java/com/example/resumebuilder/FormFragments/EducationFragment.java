@@ -41,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class EducationFragment extends Fragment {
@@ -96,7 +97,7 @@ public class EducationFragment extends Fragment {
                         userProfile = dataSnapshot.getValue(Profile.class);
                         if (userProfile != null && userProfile.getEducationArrayList() != null) {
                             ArrayList<Profile.Education> educations = userProfile.getEducationArrayList();
-
+//                            Log.d("TAG", Arrays.toString(educations.toArray()));
                             rv_frag_edu_list = getView().findViewById(R.id.container_edu_list);
                             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                             rv_frag_edu_list.setLayoutManager(layoutManager);
